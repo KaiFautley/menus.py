@@ -7,13 +7,16 @@ text-based menus of various types. It handles erroneous inputs automatically.
 &nbsp;&nbsp;Makes the user select one of any number of options
 `mainMenu(title,options,return_name=False,return_index=True)`
 
-`title`
+`title`<br/>
 &nbsp;&nbsp;The title of the menu
-`options`
+
+`options`<br/>
 &nbsp;&nbsp;The list of menu options to display and select from
-`return_name`
+
+`return_name`<br/>
 &nbsp;&nbsp;Returns the name of the option selected
-`return_index`
+
+`return_index`<br/>
 &nbsp;&nbsp;Returns the index of the option in the list of options
 
 
@@ -21,5 +24,5 @@ text-based menus of various types. It handles erroneous inputs automatically.
 &nbsp;&nbsp;Asks the user for a yes/no answer to a question
 `yesNo(question)`
 
-`question`
+`question`<br/>
 &nbsp;&nbsp;The question to be asked
