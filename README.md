@@ -4,7 +4,7 @@ menus.py is a small module designed to help quickly make simple and effective
 text-based menus of various types. It handles erroneous inputs automatically.
 ## Functions
 ### mainMenu
-&nbsp;&nbsp;Makes the user select one of any number of options
+&nbsp;&nbsp;Makes the user select one of any number of options<br/>
 `mainMenu(title,options,return_name=False,return_index=True)`
 
 `title`<br/>
@@ -21,7 +21,7 @@ text-based menus of various types. It handles erroneous inputs automatically.
 
 
 ### yesNo
-&nbsp;&nbsp;Asks the user for a yes/no answer to a question
+&nbsp;&nbsp;Asks the user for a yes/no answer to a question<br/>
 `yesNo(question)`
 
 `question`<br/>
