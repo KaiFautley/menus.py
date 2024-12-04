@@ -7,15 +7,23 @@ docs = {
     "main_product" : {
         "title":"menus.py - Simple menu functions",
             "summary":"menus.py is a small module designed to help quickly make simple and effective\n"
-            "text-based menus of various types. It handles erroneous inputs automatically,\n"
-            "making implementation for developers simple."
+            "text-based menus of various types. It handles erroneous inputs automatically."
     },"functions":{
         "mainMenu":{
-            "syntax":"mainMenu(title,options)",
-                "summary":"Makes the user select one of any number of options"
+            "syntax":"mainMenu(title,options,return_name=False,return_index=True)",
+                "summary":"Makes the user select one of any number of options",
+                "usage":{
+                    "title":"The title of the menu",
+                    "options":"The list of menu options to display and select from",
+                    "return_name":"Returns the name of the option selected",
+                    "return_index":"Returns the index of the option in the list of options"
+                }
         },"yesNo":{
             "syntax":"yesNo(question)",
-                "summary":"Asks the user for a yes/no answer to a question"
+                "summary":"Asks the user for a yes/no answer to a question",
+                "usage":{
+                    "question":"The question to be asked"
+                }
         }
     }
 }
@@ -26,7 +34,7 @@ class InvalidMenuException(Exception):
         self.message = message
         super().__init__(self.message)
 
-def mainMenu(title,options):
+def mainMenu(title,options,return_name=False,return_index=True):
     # Full text-based menu, gives a question and asks a user to select from a series of options. Handles most unexpected inputs.
 
     # check params - if they're not right, throw an error
@@ -57,7 +65,10 @@ def mainMenu(title,options):
                 input(f"'{choice}' is not a valid option.") # `input` is used here so that the menu will only come back once the user has pressed Enter
         except ValueError:
             input(f"'{choice}' is not a valid whole number.")
-
+    if return_name: # return the name of the option instead of the number chosen
+        return options[choice-1]
+    elif return_index: # return the list index
+        choice -= 1
     return choice # return the choice as an integer for the program to deal with
 
 def yesNo(question):
@@ -85,9 +96,11 @@ def yesNo(question):
 
 if __name__ == "__main__":
     # print some quick docs
-    print(
-        "This module cannot be run on its own, and is meant to be used inside of other applications.\n\n"
-        f"\033[1m\033[4m{docs["main_product"]["title"]}\033[0m\n  {docs["main_product"]["summary"]}\n\n"
-        f"\033[1m{docs["functions"]["mainMenu"]["syntax"]}\033[0m\n  {docs["functions"]["mainMenu"]["summary"]}\n\n"
-        f"\033[1m{docs["functions"]["yesNo"]["syntax"]}\033[0m\n  {docs["functions"]["yesNo"]["summary"]}\n\n"
-          )
+    docprint = f"This module cannot be run on its own, and is meant to be used inside of other applications.\n\n\033[1m\033[4m{docs["main_product"]["title"]}\033[0m\n  {docs["main_product"]["summary"]}\n\n"
+    for func_ in docs["functions"]:
+        func = docs["functions"][func_]
+        docprint += f"\033[1m{func["syntax"]}\033[0m\n  {func["summary"]}\n\n"
+        for arg in func["usage"]:
+            docprint += f"{arg}\n  {func["usage"][arg]}\n"
+        docprint += "\n\n"
+    print(docprint)
