@@ -58,7 +58,7 @@ def mainMenu(title,options,return_name=False,return_index=True):
         # actual user interaction starts here
         choice = input(menu_text).strip()
         try:
-            choice2 = int(choice) # attempt to convert `choice` to int is done separately such that the input can be printed in the event of an error at this step
+            choice = int(choice) # attempt to convert `choice` to int is done separately such that the input can be printed in the event of an error at this step
         except ValueError:
             if choice.lower() in [x.lower().strip() for x in options]: # check if they typed out the choice instead of typing the number like they were told to
                 valid = True
@@ -66,7 +66,7 @@ def mainMenu(title,options,return_name=False,return_index=True):
             else:
                 input(f"'{choice}' is not a valid whole number.")
         else:
-            if choice2 in range(1,len(options)+1):
+            if choice in range(1,len(options)+1):
                 valid = True # this is where the loop ends
             else:
                 input(f"'{choice}' is not a valid option.") # `input` is used here so that the menu will only come back once the user has pressed Enter
