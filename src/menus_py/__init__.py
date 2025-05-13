@@ -37,36 +37,36 @@ class InvalidMenuException(Exception):
 def mainMenu(title,options,return_name=False,return_index=True):
     # Full text-based menu, gives a question and asks a user to select from a series of options. Handles most unexpected inputs.
 
-    # check params - if they're not right, throw an error
+    # check the options list is actually a list and throw an error if not
     if type(options) != list:
         raise InvalidMenuException(f"Options is of type {type(options).__name__}, not list!") 
-    
+    # similar check for the title being a string
     elif type(title) != str:
         raise InvalidMenuException(f"Title is of type {type(title).__name__}, not str!")
-    
+    # check there are actually options to choose from
     elif options == []:
         raise InvalidMenuException("Options cannot be empty")
     
     # create the printed text for the menu
-    menu_text = f"{title}\n\n"
+    menu_text = f"{title}\n\n" # title and newlines
     for option in range(len(options)): # for each option, include the option number and name
-        menu_text += f"  {option+1}. {options[option]}\n"
-    menu_text += f"\nEnter an option [1-{option+1}]: "
+        menu_text += f"  {option+1}. {options[option]}\n" # TODO: make layout customisable
+    menu_text += f"\nEnter an option [1-{option+1}]: " # Prompt for the user
     
     valid = False
     while not valid: # keep going until we get something actually useful out of the user
         # actual user interaction starts here
-        choice = input(menu_text).strip()
+        choice = input(menu_text).strip() # strip the user input for easier processing
         try:
             choice = int(choice) # attempt to convert `choice` to int is done separately such that the input can be printed in the event of an error at this step
         except ValueError:
             if choice.lower() in [x.lower().strip() for x in options]: # check if they typed out the choice instead of typing the number like they were told to
                 valid = True
-                choice = [x.lower() for x in options].index(choice.lower()) + 1 # convert it back into if they'd ctually done it right
+                choice = [x.lower() for x in options].index(choice.lower()) + 1 # set choice to the integer equivalent of the selected option
             else:
                 input(f"'{choice}' is not a valid whole number.")
         else:
-            if choice in range(1,len(options)+1):
+            if choice in range(1,len(options)+1): # check the entered number is within range
                 valid = True # this is where the loop ends
             else:
                 input(f"'{choice}' is not a valid option.") # `input` is used here so that the menu will only come back once the user has pressed Enter
@@ -77,10 +77,12 @@ def mainMenu(title,options,return_name=False,return_index=True):
     return choice # return the choice as an integer for the program to deal with
 
 def yesNo(question):
+    # TODO: rewrite to accept different sets of letters (under another name) then convert this function to just link to that.
+    
     # Keeps asking a question until Yes or No is entered
     # borrows some code from `menu`, more detailed comments are there
 
-    # error handling
+    # Make sure the question is a string
     if type(question) != str:
         raise InvalidMenuException(f"Question is of type {type(question).__name__}, not str!")
     
@@ -88,7 +90,7 @@ def yesNo(question):
     valid = False
     while not valid: # keep going until we get something actually useful out of the user
         # actual user interaction starts here
-        choice = input(menu_text)
+        choice = input(menu_text).strip()
         try: # an exception will be raised if the input is empty, so use a try block to catch that
             if choice[0].lower() in ["y","n"]: # check if the first letter is "y" or "n", to catch if the user enters "Yes" or "No"
                 valid = True
