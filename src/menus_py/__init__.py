@@ -92,6 +92,8 @@ def simpleChoice(question,letters,first_only=True):
     if type(question) is not str:
         raise InvalidMenuException(f"Question is of type {type(question).__name__}, not str!")
     # check letter list is valid
+    if type(letters) is not list:
+        raise InvalidMenuException(f"Letter list is of type {type(letters).__name__}, not list!")
     letters2 = []
     for letter in letters:
         if len(letter) > 1: # This only allows single-letter options
