@@ -102,7 +102,7 @@ def simpleChoice(question,letters,first_only=True):
     if letters == []:
         raise InvalidMenuException("List of options cannot be empty!") # Ensures the list actually has options in it
     
-    menu_text = f"{question} [{[f"{letters[letter]}/" for i in range(letters-1)]}{letters[-1]}]: " # Formats the menu text. It's a bit of a mess, I'll clean it up later.
+    menu_text = f"{question} [{"".join([f"{letters[i]}/" for i in range(len(letters)-1)])}{letters[-1]}]: " # Formats the menu text. It's a bit of a mess, I'll clean it up later.
 
     valid = False
     while not valid: # keep going until we get something actually useful out of the user
@@ -117,7 +117,7 @@ def simpleChoice(question,letters,first_only=True):
                 valid = True
             else:
                 input(f"{choice} is not an option.")
-        except ValueError:
+        except IndexError:
             input("Answer cannot be empty!")
     return choice[0].lower() # return the formatted result
 
