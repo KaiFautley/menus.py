@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 name = "menus-py"
 version = "1.2.2"
 authors = [
-  { name="Kai Fautley"},
+  { name="Kai Fautley" },
 ]
 description = "Simple library for creating text-based menus"
 readme = "README.md"
